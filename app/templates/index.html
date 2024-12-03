@@ -10,10 +10,9 @@
 
 <body>
   <button id='myButton'>Generar gŕafica</button>
-  <main id='graph'>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  </main>
 
+  <iframe id="graphIframe" width="70%" frameborder="0"></iframe>
+  
   <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 

@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
   <title>Graph Viewer</title>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body>
   <button id='myButton'>Generar gŕafica</button>
-
-  <iframe src="{{ url_for('static', filename='graph.html') }}" width="100%" height="600px" frameborder="0"></iframe>
-  <main id='graph'></main>
+  <main id='graph'>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </main>
 
   <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>

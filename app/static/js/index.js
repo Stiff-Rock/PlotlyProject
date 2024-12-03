@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       .then(response => response.json())
       .then(data => {
         const main = document.getElementById('graph');
-        main.innerHTML = data.graph_html
+        main.innerHTML = data.graph_html;
       })
       .catch(error => {
         console.error("Error:", error);

@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>Graph</title>
+            <link rel="stylesheet" href="../static/css/graph.css">
             <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
           </head>
           <body>

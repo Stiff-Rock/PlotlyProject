@@ -1,11 +1,12 @@
+import secrets
 from flask import Flask
 from flask_cors import CORS
 
 def create_app():
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = 'clave'
-    
+    app.config['SECRET_KEY'] = secrets.token_hex(32)
+        
     CORS(app)
 
     from .routes import routes

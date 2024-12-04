@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from app import create_app
 from waitress import serve
+from PySide6.QtGui import QIcon
 
 def create_browser_window():
     app = QApplication([])
@@ -12,6 +13,8 @@ def create_browser_window():
     webview.setUrl("http://127.0.0.1:5000")
     window.setCentralWidget(webview)
     window.resize(1024, 720)
+    window.setWindowTitle("Plotly Project")
+    window.setWindowIcon(QIcon('app/static/img/icon.png'))
 
     screen = app.primaryScreen()
     screen_geometry = screen.availableGeometry()

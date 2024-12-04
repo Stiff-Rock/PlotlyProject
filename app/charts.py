@@ -3,10 +3,11 @@ import plotly.offline as plto
 
 class charts():
     '''
+    <h1>charts</h1>
+    <p>manage the ploting of charts</p>
     <h3>author: D4vsus</h3>
     '''
 
-    #Plot a chart
     def plotChart(chart:plt.graph_objs.Figure):
         '''
         <h1>plotChart()</h1>

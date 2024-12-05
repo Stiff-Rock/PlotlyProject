@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, render_template
 import plotly.graph_objects as go
-from charts import plotChart
+from .charts import plotChart
 
 routes = Blueprint('routes', __name__)
 

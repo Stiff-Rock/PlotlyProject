@@ -1,4 +1,4 @@
-import logging
+import logging    
 from multiprocessing import Process
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -26,8 +26,8 @@ def create_browser_window():
     window.show()
     app.exec()
 
-def run_server():
-    serve(app, host='0.0.0.0', port=5000)
+def run_server(): 
+    serve(app, host='127.0.0.1', port=5000)
 
 def stop_server(event):
     logging.info("Server has stopped.")

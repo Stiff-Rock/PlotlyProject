@@ -8,6 +8,6 @@ rm -f *.spec
 
 # Run PyInstaller
 echo "Running PyInstaller..."
-pyinstaller -w -F --add-data "app/templates:templates" --add-data "app/static:static" run.py
+pyinstaller -w -F --icon="app/static/img/icon.ico" --add-data "app/templates:templates" --add-data "app/static:static" run.py
 
 echo "Build complete!"

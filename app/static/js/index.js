@@ -1,7 +1,23 @@
 document.addEventListener('DOMContentLoaded', async () => {
   const button = document.getElementById('myButton');
+  const file_chooser = document.getElementById('file_chooser');
+  let file;
+
+  file_chooser.addEventListener("change",(e)=>{
+    const files = e.target.files;
+      if (files.length > 0) {
+        file = files[0];
+      }
+  });
+
   button.addEventListener("click", () => {
-    fetch('http://127.0.0.1:5000/generate-graph')
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('http://127.0.0.1:5000/generate-graph',{
+      method: 'POST',
+      body: formData
+    })
       .then(response => response.json())
       .then(data => {
         const iframe = document.getElementById('graphIframe');

@@ -4,6 +4,21 @@
     flex-direction: column;
   }
 
+  .buttonDisplay{
+    overflow: hidden;
+    display: flex;
+  }
+
+label {
+    cursor: pointer;
+ }
+ 
+ .file_chooser {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+ }
+
   #myButton {
     background-color: #4CAF50;
     border: none;

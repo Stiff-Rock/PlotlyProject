@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, request
+
 import plotly.express as px
-import plotly.graph_objects as go
 from .charts import charts
+from .FormatNotSupportedError import FormatNotSupportedError
 
 routes = Blueprint('routes', __name__)
 
@@ -9,26 +10,33 @@ routes = Blueprint('routes', __name__)
 def home():
     return render_template("index.html")
 
-@routes.route('/generate-graph', methods=['GET'])
+@routes.route('/generate-graph', methods=['GET','POST'])
 def generate_graph():
-    fig = go.Figure(
-    data=[go.Scatter(x=[1, 2, 3, 4], y=[10, 20, 15, 30], mode='lines+markers')],
-    layout=go.Layout(title="Scatter Plot Example")
-)
+
+     # Check if a file is part of the request
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part in the request"}), 400
+
+    file = request.files['file']
+
+    # Check if a file was actually uploaded
+    if file.filename == '':
+        return jsonify({"error": "No file selected"}), 400
+    
+    try:
+        dataframe = charts.importDataFrame(file)
+    except FormatNotSupportedError as e:
+        return jsonify({"error": f"{e}"}), e.code 
+
+    # Create the chart
     fig = px.scatter(
-    x=[1, 2, 3, 4], y=[10, 15, 13, 17],
-    title='Scatter Plot with Customized Markers',
-    labels={'x': 'X-axis', 'y': 'Y-axis'},
-    color=["red", "blue", "green", "purple"],  # Marker colors
-    size=[10, 20, 30, 40]  # Marker sizes
-)
-    fig = px.scatter_3d(
-    x=[1, 2, 3, 4],
-    y=[10, 15, 13, 17],
-    z=[5, 7, 9, 11],
-    color=["red", "blue", "green", "purple"],
-    title='3D Scatter Plot',
-    labels={'x': 'X-axis', 'y': 'Y-axis', 'z': 'Z-axis'}
+    data_frame=dataframe,
+
+    # TODO: use a "select" from the html to get the columns x and y, for the chart
+    x=list(dataframe.columns)[0], y=(dataframe.columns)[1],
+
+    title=file.filename,
 )
 
+    # Return the chart
     return jsonify({"graph_html": charts.plotChart(fig)})

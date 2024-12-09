@@ -9,9 +9,13 @@
     display: flex;
   }
 
-label {
+  img{
+    size: 50%;
+  }
+
+  label {
     cursor: pointer;
- }
+  }
  
  .file_chooser {
     opacity: 0;

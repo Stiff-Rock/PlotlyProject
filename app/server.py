@@ -11,6 +11,7 @@ class Server:
     def run_server(self):
         serve(self.app, host='127.0.0.1', port=5000)
 
+
     def stop_server(self, event):
         if self.server_process.is_alive():
             self.server_process.terminate()

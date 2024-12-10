@@ -9,8 +9,11 @@
 </head>
 
 <body>
-  <button id='myButton'>Generar gŕafica</button>
-
+  <div class="buttonDisplay">
+    <label for="file_chooser"><img src="../static/img/file.svg" alt="Click here to import"/></label> 
+    <input class="file_chooser" type="file" name="file" id="file_chooser">
+    <button id='myButton'>Generar gŕafica</button>
+  </div>
   <iframe id="graphIframe" width="70%" frameborder="0"></iframe>
   
   <script src="{{ url_for('static', filename='js/index.js') }}"></script>

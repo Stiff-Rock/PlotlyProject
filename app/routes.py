@@ -1,6 +1,8 @@
-from flask import Blueprint, jsonify, render_template
-import plotly.graph_objects as go
-from .charts import plotChart
+from flask import Blueprint, jsonify, render_template, request
+
+import plotly.express as px
+from .charts import charts
+from .FormatNotSupportedError import FormatNotSupportedError
 
 routes = Blueprint('routes', __name__)
 
@@ -8,27 +10,33 @@ routes = Blueprint('routes', __name__)
 def home():
     return render_template("index.html")
 
-@routes.route('/generate-graph', methods=['GET'])
+@routes.route('/generate-graph', methods=['GET','POST'])
 def generate_graph():
-    ages = [10, 20, 30, 40, 50, 60]  
-    incomes = [1000, 2000, 3000, 4000, 5000, 6000] 
 
-    fig = go.Figure(
-        data=[
-            go.Scatter(
-                x=ages, 
-                y=incomes, 
-                mode='lines+markers', 
-                marker=dict(color='blue', size=8), 
-                line=dict(color='blue', width=2)
-            )
-        ],
-        layout=go.Layout(
-            title="Relación entre Edad e Ingreso",
-            xaxis=dict(title="Edad (años)"),
-            yaxis=dict(title="Ingreso ($)"),
-            template="plotly_white"
-        )
-    )
+     # Check if a file is part of the request
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part in the request"}), 400
 
-    return jsonify({"graph_html": plotChart(fig)})
+    file = request.files['file']
+
+    # Check if a file was actually uploaded
+    if file.filename == '':
+        return jsonify({"error": "No file selected"}), 400
+    
+    try:
+        dataframe = charts.importDataFrame(file)
+    except FormatNotSupportedError as e:
+        return jsonify({"error": f"{e}"}), e.code 
+
+    # Create the chart
+    fig = px.scatter(
+    data_frame=dataframe,
+
+    # TODO: use a "select" from the html to get the columns x and y, for the chart
+    x=list(dataframe.columns)[0], y=(dataframe.columns)[1],
+
+    title=file.filename,
+)
+
+    # Return the chart
+    return jsonify({"graph_html": charts.plotChart(fig)})

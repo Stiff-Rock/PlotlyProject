@@ -24,5 +24,3 @@ class MainWindow(QWidget):
         window_geometry = self.frameGeometry()
         window_geometry.moveCenter(screen_geometry.center())
         self.move(window_geometry.topLeft())
-
-        self.closeEvent = lambda event : self.server_instance.stop_server(event)

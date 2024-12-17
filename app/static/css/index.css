@@ -4,8 +4,23 @@
     flex-direction: column;
   }
 
+  .buttonDisplay{
+    display: inline-flex;
+    background-color: #111111;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .file_chooser{
+    display: none;
+  }
+  
+  .file_chooser_label{
+    cursor: pointer;
+  }
+
   #myButton {
-    background-color: #4CAF50;
+    background-color: #666666;
     border: none;
     color: white;
     padding: 12px 24px;
@@ -22,12 +37,12 @@
   }
 
   #myButton:hover {
-    background-color: #45a049;
+    background-color: #555555;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
   }
 
   #myButton:active {
-    background-color: #3e8e41;
+    background-color: #333333;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transform: translateY(2px);
   }

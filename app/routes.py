@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, render_template, request
 
-import plotly.express as px
 from .charts import charts
 from .FormatNotSupportedError import FormatNotSupportedError
 
@@ -28,15 +27,8 @@ def generate_graph():
     except FormatNotSupportedError as e:
         return jsonify({"error": f"{e}"}), e.code 
 
-    # Create the chart
-    fig = px.scatter(
-    data_frame=dataframe,
-
-    # TODO: use a "select" from the html to get the columns x and y, for the chart
-    x=list(dataframe.columns)[0], y=(dataframe.columns)[1],
-
-    title=file.filename,
-)
+    # Create the chart    
+    fig = charts.buildChart(dataframe=dataframe,type_chart="scatter",titel=file.filename)
 
     # Return the chart
     return jsonify({"graph_html": charts.plotChart(fig)})
